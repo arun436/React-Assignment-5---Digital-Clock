@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useEffect, useState } from "react";
 import '../styles/App.css';
 
 const App = () => {
@@ -9,7 +9,13 @@ const App = () => {
         date = new Date().toLocaleTimeString();
         setTime(date);
     };
-    setInterval(updateTime, 1000);
+    useEffect(()=>{
+        let interval = setInterval(updateTime, 1000);
+        return () => {
+            clearInterval(interval);
+        }
+    },[])
+    
     return (
             <div className="Clock">
                 <h3 id="time">{time}</h3>
